@@ -4,7 +4,7 @@ import './App.css'
 
 function App() {
   const [messages, setMessages] = useState([])
-  const [text, setText] = useState('Hello Hasan sir')
+  const [text, setText] = useState('Hello ')
 
   const handleSave = async () => {
     try {
