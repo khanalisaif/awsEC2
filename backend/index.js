@@ -41,6 +41,17 @@ app.get('/api/message', async (req, res) => {
   }
 });
 
+// API 3: Delete Message
+app.delete('/api/message/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Message.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Message deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

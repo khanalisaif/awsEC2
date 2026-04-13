@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { saveMessage, getMessages } from './services/api'
+import { useState, useEffect } from 'react'
+import { saveMessage, getMessages, deleteMessage } from './services/api'
 import './App.css'
 
 function App() {
@@ -27,6 +27,20 @@ function App() {
     }
   }
 
+  const handleDelete = async (id) => {
+    if (!id) return;
+    try {
+      await deleteMessage(id);
+      handleGet();
+    } catch (err) {
+      alert("Failed to delete message");
+    }
+  }
+
+  useEffect(() => {
+    handleGet();
+  }, []);
+
   return (
     <>
       <div className="card" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '300px', margin: 'auto' }}>
@@ -49,9 +63,17 @@ function App() {
 
         <div style={{ marginTop: '2rem', textAlign: 'left' }}>
           <h3>Messages from DB:</h3>
-          <ul>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
             {messages.map((msg, index) => (
-              <li key={index}>{msg.text}</li>
+              <li key={msg._id || index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}>
+                <span style={{ marginRight: '1rem' }}>{msg.text}</span>
+                <button 
+                  onClick={() => handleDelete(msg._id)}
+                  style={{ backgroundColor: '#ff4d4f', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                >
+                  Delete
+                </button>
+              </li>
             ))}
           </ul>
         </div>
