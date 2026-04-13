@@ -25,7 +25,7 @@ app.post('/api/message', async (req, res) => {
     }
     const newMessage = new Message({ text });
     await newMessage.save();
-    res.status(201).json({ message: 'Message saved successfully', data: newMessage });
+    res.status(201).json({ message: 'Message saved  successfully', data: newMessage });
   } catch (error) {
     res.status(500).json({ error: 'Server Error' });
   }
