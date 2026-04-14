@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://13.48.177.149/:5000/api',
+  baseURL: 'http://13.48.177.149:5000/api'
 });
 
 export const saveMessage = async (text) => {
